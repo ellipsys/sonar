@@ -39,8 +39,8 @@ for i in range(181,255):
                         if n == techni: ##Technicolor
                             tech = tech+1
                             #print r.headers
-                            r2 = requests.get('http://'+h+':8080/wlanPrimaryNetwork.asp', auth=HTTPBasicAuth('admin', 'Uq-4GIt3M'), timeout=None, headers=header)
-                            guess = requests.get('http://'+h+':8080/wlanGuestNetwork.asp', auth=HTTPBasicAuth('admin', 'Uq-4GIt3M'), timeout=None, headers=header)
+                            r2 = requests.get('http://'+h+':8080/wlanPrimaryNetwork.asp', auth=HTTPBasicAuth('admin', 'password'), timeout=None, headers=header)
+                            guess = requests.get('http://'+h+':8080/wlanGuestNetwork.asp', auth=HTTPBasicAuth('admin', 'password'), timeout=None, headers=header)
                             guess_ok = str(guess.status_code)
                             #:8080/wlanGuestNetwork.asp
                             parser1 = r2.content
